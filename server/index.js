@@ -7,7 +7,7 @@ import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+import cors from 'cors';
 dotenv.config();
 
 mongoose
@@ -22,6 +22,15 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+
+app.use(cors(
+  {
+    origin: ["https://journol-vercel.vercel.app"],
+    methods: ["POST", "GET"],
+    credentials: true
+  }
+  ));
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -42,9 +51,14 @@ app.get("/", (req, res) => {
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
+
+  // Log the error message
+  console.error("Error:", message);
+
   res.status(statusCode).json({
     success: false,
     statusCode,
-    message,
+    message: JSON.stringify(message), // Convert message to JSON string
   });
 });
+
