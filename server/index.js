@@ -51,9 +51,14 @@ app.get("/", (req, res) => {
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
+
+  // Log the error message
+  console.error("Error:", message);
+
   res.status(statusCode).json({
     success: false,
     statusCode,
     message: JSON.stringify(message), // Convert message to JSON string
   });
 });
+
