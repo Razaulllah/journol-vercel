@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://journol-vercel-server.vercel.app",
+        target: "https://journol-vercel-api.vercel.app",
         secure: false,
       },
     },
