@@ -46,6 +46,7 @@ app.use("/api/comment", commentRoutes);
 app.get("/", (req, res) => {
   app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
   res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  res.send("Api is Running");
 });
 
 app.use((err, req, res, next) => {
